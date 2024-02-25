@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-darkbg;
+}
+
+.btn {
+    @apply 
+    bg-accent duration-300 font-bold inline-block overflow-hidden px-6 py-4 relative rounded-md text-gray-300 transition-colors hover:text-accent;
+
+    .wrapper {
+        @apply flex flex-row items-center justify-between relative;
+
+        .text {
+            @apply block text-center w-full z-[1];
+        }
+
+        svg {
+            @apply z-[1];
+        }
+    }
+
+    &::after {
+        @apply absolute bg-black block content-[''] duration-1000 ease-in-out h-full invisible left-full top-0 transition-all w-full;
+    }
+
+    &::before {
+        @apply absolute bg-black content-[''] duration-1000 ease-in-out h-full invisible right-full top-0 transition-all w-full;
+    }
+
+    &:hover {
+        &::after {
+            @apply left-0 visible;
+        }
+        &::before {
+            @apply right-0 visible;
+        }
+    }
+}
+
+header {
+    @apply 
+    bg-darkheaderbg fixed left-0 top-0 w-full z-[999]
+    lg:h-screen lg:w-1/5;
+
+    #top {
+        @apply px-8 py-5 
+                lg:py-16;
+
+        .container {
+            @apply flex flex-row flex-wrap items-center justify-between mx-auto;
+
+            #menu-toggle {
+                @apply stroke-gray-200 lg:hidden;
+            }
+        }
+    }
+
+    #menu-wrapper {
+        @apply bg-darkmenubg duration-500 w-full
+                lg:bg-transparent lg:px-8;
+
+        ul {
+            li {
+                a {
+                    @apply block px-8 py-2 text-gray-300;
+                }
+
+                &:not(:last-child) {
+                    @apply border-b border-b-gray-400;
+                }
+            }
+        }
+    }
+}
+
+#main-content {
+    .section {
+        @apply flex flex-col h-screen items-center justify-center px-12 text-center;
+
+        &#about {
+            h1 {
+                @apply font-bold mb-6 text-center text-white text-4xl;
+
+                span {
+                    @apply text-accent;
+                }
+            }
+
+            p {
+                @apply font-medium mb-6 text-center text-gray-300;
+            }
+        }
+        
+        &#skills {
+            @apply bg-white;
+
+            h2 {
+                @apply font-bold mb-6 text-3xl;
+            }
+
+            p {
+                @apply font-medium mb-6;
+            }
+
+            ul {
+                @apply flex flex-row flex-wrap gap-y-6;
+
+                li {
+                    @apply flex items-center justify-center p-4 w-2/4;
+                }
+            }
+        }
+    }
+}
