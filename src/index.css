@@ -2,13 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    @apply scroll-smooth;
+}
+
 body {
-    @apply bg-darkbg;
+    @apply 
+    bg-body text-text
+    dark:bg-darkbody dark:text-darktext
+    lg:flex lg:flex-row;
+}
+
+a {
+    @apply inline-block;
 }
 
 .btn {
     @apply 
-    bg-accent duration-300 font-bold inline-block overflow-hidden px-6 py-4 relative rounded-md text-gray-300 transition-colors hover:text-accent;
+    duration-300 font-bold inline-block overflow-hidden px-6 py-4 relative rounded-md text-darktext transition-colors;
 
     .wrapper {
         @apply flex flex-row items-center justify-between relative;
@@ -23,11 +34,11 @@ body {
     }
 
     &::after {
-        @apply absolute bg-black block content-[''] duration-1000 ease-in-out h-full invisible left-full top-0 transition-all w-full;
+        @apply absolute block content-[''] duration-1000 ease-in-out h-full invisible left-full top-0 transition-all w-full;
     }
 
     &::before {
-        @apply absolute bg-black content-[''] duration-1000 ease-in-out h-full invisible right-full top-0 transition-all w-full;
+        @apply absolute content-[''] duration-1000 ease-in-out h-full invisible right-full top-0 transition-all w-full;
     }
 
     &:hover {
@@ -38,38 +49,78 @@ body {
             @apply right-0 visible;
         }
     }
+
+    &.btn-accent {
+        @apply bg-accent;
+
+        &::after, &::before {
+            @apply bg-accentdark;
+        }
+    }
+
+    &.btn-accent-two {
+        @apply bg-accentdark;
+
+        &::after, &::before {
+            @apply bg-accent;
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply
+    font-bold mb-6 text-titles
+    dark:text-darktitles;
+}
+
+p {
+    @apply font-medium mb-4 text-lg;
 }
 
 header {
     @apply 
-    bg-darkheaderbg fixed left-0 top-0 w-full z-[999]
-    lg:h-screen lg:w-1/5;
+    bg-header fixed left-0 shadow-md top-0 w-full z-[999]
+    lg:h-screen lg:w-[30%]
+    dark:bg-darkheader
+    lg:px-12;
 
     #top {
-        @apply px-8 py-5 
-                lg:py-16;
+        @apply 
+        px-8 py-2 
+        lg:px-0 lg:py-16;
 
         .container {
             @apply flex flex-row flex-wrap items-center justify-between mx-auto;
 
-            #menu-toggle {
-                @apply stroke-gray-200 lg:hidden;
+            #header-right {
+                @apply flex flex-row gap-3 items-center justify-end;
+
+                #menu-toggle {
+                    @apply stroke-text 
+                    dark:stroke-darktext
+                    lg:hidden;
+                }
             }
         }
     }
 
     #menu-wrapper {
-        @apply bg-darkmenubg duration-500 w-full
-                lg:bg-transparent lg:px-8;
+        @apply 
+        border-t duration-500 w-full
+        dark:border-t-neutral-800
+        lg:bg-transparent;
 
         ul {
             li {
                 a {
-                    @apply block px-8 py-2 text-gray-300;
+                    @apply 
+                    block px-8 py-2 text-text
+                    dark:text-darktext
+                    dark:hover:text-darktitles;
                 }
 
                 &:not(:last-child) {
-                    @apply border-b border-b-gray-400;
+                    @apply border-b dark:border-b-neutral-800;
                 }
             }
         }
@@ -77,12 +128,20 @@ header {
 }
 
 #main-content {
+    @apply w-full lg:ml-[30%] lg:w-[70%];
+
     .section {
-        @apply flex flex-col h-screen items-center justify-center px-12 text-center;
+        @apply flex flex-col items-center justify-center min-h-screen px-12 text-center
+        even:bg-bodyalt
+        dark:even:bg-darkbodyalt;
 
         &#about {
+            @apply pt-12 lg:pt-0;
+
             h1 {
-                @apply font-bold mb-6 text-center text-white text-4xl;
+                @apply 
+                font-bold mb-6 text-center text-4xl
+                md:mb-10 md:px-20 md:text-5xl;
 
                 span {
                     @apply text-accent;
@@ -90,13 +149,20 @@ header {
             }
 
             p {
-                @apply font-medium mb-6 text-center text-gray-300;
+                @apply 
+                font-medium mb-6 text-center text-text
+                dark:text-darktext
+                md:mb-10 md:px-20 md:text-2xl;
+            }
+
+            #buttons {
+                @apply
+                flex flex-col gap-3 w-full
+                md:flex-row md:flex-wrap md:items-center md:justify-center;
             }
         }
         
         &#skills {
-            @apply bg-white;
-
             h2 {
                 @apply font-bold mb-6 text-3xl;
             }
@@ -109,7 +175,38 @@ header {
                 @apply flex flex-row flex-wrap gap-y-6;
 
                 li {
-                    @apply flex items-center justify-center p-4 w-2/4;
+                    @apply 
+                    flex items-center justify-center p-4 w-4/12
+                    md:w-1/5;
+                }
+            }
+        }
+
+        &#experience {
+            h3 {
+                @apply
+                text-2xl;
+            }
+
+            p {
+                @apply mb-8;
+            }
+        }
+
+        &#portfolio {
+            .items {
+                @apply gap-3 grid grid-cols-2 xl:grid-cols-3;
+
+                .column {
+                    @apply flex flex-col gap-3;
+                }
+
+                .item {
+                    @apply overflow-hidden;
+
+                    img {
+                        @apply duration-500 ease-in-out transition-transform hover:scale-150;
+                    }
                 }
             }
         }
